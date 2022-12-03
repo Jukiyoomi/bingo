@@ -7,6 +7,7 @@ specifiers:
   cors: ^2.8.5
   express: ^4.18.2
   nodemon: ^2.0.20
+  react-router-dom: ^6.4.4
   socket.io: ^4.5.4
   ts-node: ^10.9.1
   tsconfig-paths: ^4.1.1
@@ -16,6 +17,7 @@ specifiers:
 dependencies:
   cors: 2.8.5
   express: 4.18.2
+  react-router-dom: 6.4.4
   socket.io: 4.5.4
 
 devDependencies:
@@ -83,19 +85,24 @@ packages:
     dev: true
 
   /@nodelib/fs.walk/1.2.8:
-    resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
-    engines: {node: '>= 8'}
+    resolution: { integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg== }
+    engines: { node: '>= 8' }
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
     dev: true
 
+  /@remix-run/router/1.0.4:
+    resolution: { integrity: sha512-gTL8H5USTAKOyVA4xczzDJnC3HMssdFa3tRlwBicXynx9XfiXwneHnYQogwSKpdCkjXISrEKSTtX62rLpNEVQg== }
+    engines: { node: '>=14' }
+    dev: false
+
   /@socket.io/component-emitter/3.1.0:
-    resolution: {integrity: sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==}
+    resolution: { integrity: sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg== }
     dev: false
 
   /@tsconfig/node10/1.0.9:
-    resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
+    resolution: { integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA== }
     dev: true
 
   /@tsconfig/node12/1.0.11:
@@ -1162,8 +1169,8 @@ packages:
     dev: false
 
   /raw-body/2.5.1:
-    resolution: {integrity: sha512-qqJBtEyVgS0ZmPGdCFPWJ3FreoqvG4MVQln/kCgF7Olq95IbOp0/BWyMwbdtn4VTvkM8Y7khCQ2Xgk/tcrCXig==}
-    engines: {node: '>= 0.8'}
+    resolution: { integrity: sha512-qqJBtEyVgS0ZmPGdCFPWJ3FreoqvG4MVQln/kCgF7Olq95IbOp0/BWyMwbdtn4VTvkM8Y7khCQ2Xgk/tcrCXig== }
+    engines: { node: '>= 0.8' }
     dependencies:
       bytes: 3.1.2
       http-errors: 2.0.0
@@ -1171,15 +1178,35 @@ packages:
       unpipe: 1.0.0
     dev: false
 
+  /react-router-dom/6.4.4:
+    resolution: { integrity: sha512-0Axverhw5d+4SBhLqLpzPhNkmv7gahUwlUVIOrRLGJ4/uwt30JVajVJXqv2Qr/LCwyvHhQc7YyK1Do8a9Jj7qA== }
+    engines: { node: '>=14' }
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.0.4
+      react-router: 6.4.4
+    dev: false
+
+  /react-router/6.4.4:
+    resolution: { integrity: sha512-SA6tSrUCRfuLWeYsTJDuriRqfFIsrSvuH7SqAJHegx9ZgxadE119rU8oOX/rG5FYEthpdEaEljdjDlnBxvfr+Q== }
+    engines: { node: '>=14' }
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.0.4
+    dev: false
+
   /readdirp/3.6.0:
-    resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
-    engines: {node: '>=8.10.0'}
+    resolution: { integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA== }
+    engines: { node: '>=8.10.0' }
     dependencies:
       picomatch: 2.3.1
     dev: true
 
   /resolve-from/5.0.0:
-    resolution: {integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==}
+    resolution: { integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw== }
     engines: {node: '>=8'}
     dev: true
 
