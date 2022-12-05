@@ -3,8 +3,9 @@ import {Server, Socket} from "socket.io";
 
 interface IPlayer {
 	username: string,
-	role: string,
-	socketId: string
+	role: "chief" | "player",
+	socketId: string,
+	ready: boolean
 }
 
 export default class ServerSocket {
