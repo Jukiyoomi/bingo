@@ -6,7 +6,7 @@ const Players = () => {
 	const {players} = useAppContext()
 	return (
 		<div className="flex-1 flex-wrap flex gap-3">
-			{players.map(player => <Player player={player}/>)}
+			{players.map((player, id) => <Player player={player} key={id}/>)}
 		</div>
 	);
 };
