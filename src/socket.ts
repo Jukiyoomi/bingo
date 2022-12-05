@@ -46,10 +46,22 @@ export default class ServerSocket {
 	StartListeners = (socket: Socket) => {
 		socket.on("connection", (data: string) => {
 			console.log("user connected", socket.id, data)
+
+			// Create new player and add it to the list
+			const newPlayer: IPlayer = {
+				username: data,
+				role: this.players.length === 0 ? "chief" : "player",
+				socketId: socket.id,
+				ready: false
+			}
+			this.players = [...this._players, newPlayer]
 		})
 
 		socket.on("disconnect", () => {
 			console.log("user disconnected", socket.id)
+
+			// Remove the player from the list
+			this.players = this.players.filter(player => player.socketId === socket.id)
 		})
 	}
 }
