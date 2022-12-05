@@ -10,8 +10,8 @@ interface IPlayer {
 
 export default class ServerSocket {
 	constructor(server: HttpServer) {
-		this._players = []
-		this._io = new Server(server, {
+		this.players = []
+		this.io = new Server(server, {
 			serveClient: false,
 			cookie: false,
 			cors: {
@@ -20,7 +20,7 @@ export default class ServerSocket {
 				methods: ["GET", "POST"],
 			},
 		})
-		this._io.on("connect", this.StartListeners)
+		this.io.on("connect", this.StartListeners)
 	}
 
 	private _io: Server
