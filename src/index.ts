@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import http from "http";
+import ServerSocket from "~/socket";
 
 const app = express()
 
@@ -11,6 +12,8 @@ app.use(cors())
 
 /** Server Handling */
 const server = http.createServer(app)
+
+new ServerSocket(server)
 
 /** Listen */
 server.listen(4000, () => console.log("Server runs"))
