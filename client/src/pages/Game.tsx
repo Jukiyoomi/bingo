@@ -3,15 +3,13 @@ import {useAppContext} from "../context/AppContext";
 import {useNavigate} from "react-router-dom";
 
 const Game = () => {
-	const {socket, username} = useAppContext()
+	const {username, connect} = useAppContext()
 	const navigate = useNavigate()
 
 	useEffect(() => {
+		// Either redirect, or connect
 		if (!username) navigate("/")
-	}, [])
-
-	useEffect(() => {
-		socket.connect()
+		else connect()
 	}, [])
 
 	return (

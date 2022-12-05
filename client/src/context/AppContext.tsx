@@ -6,7 +6,8 @@ import {Socket} from "socket.io-client";
 interface IAppContext {
 	username: string | null,
 	setUsername: React.Dispatch<React.SetStateAction<string | null>>,
-	socket: Socket
+	socket: Socket,
+	connect: () => void
 }
 
 const AppContext = createContext<IAppContext | null>(null)
@@ -23,12 +24,16 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 	const socket = useSocket("http://localhost:4000", socketOptions)
 
 	/******************** FUNCTIONS ********************/
-
+	const connect = () => {
+		socket.connect()
+		socket.emit("connection", username)
+	}
 	/******************** VALUE ********************/
 	const value = useMemo(() => ({
 		username,
 		setUsername,
-		socket
+		socket,
+		connect
 	}), [username])
 
 	/******************** RETURN ********************/
