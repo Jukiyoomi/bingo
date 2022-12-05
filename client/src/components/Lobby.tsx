@@ -24,7 +24,7 @@ const Lobby = () => {
 				</p>
 			</div>
 
-			<div className="max-w-[800px] mx-auto mt-8 mb-0 max-w-md flex flex-col items-start gap-4">
+			<div className="max-w-[800px] mx-auto mt-8 mb-0 flex flex-col items-start gap-4">
 				<Players/>
 				<div className="flex items-center justify-end">
 					{currentPlayer && currentPlayer.ready ?
