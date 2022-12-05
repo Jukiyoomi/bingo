@@ -1,9 +1,11 @@
-import Lobby from "../components/Lobby";
+import React, {useEffect} from 'react';
 import {useAppContext} from "../context/AppContext";
-import Gameboard from "../components/Gameboard";
+import {useNavigate} from "react-router-dom";
+import Button from "../components/Button";
+import Players from "../components/Players";
 
-const Game = () => {
-	const {username, connect, players, getReady, currentPlayer} = useAppContext()
+const Lobby = () => {
+	const {username, connect, players, getReady, currentPlayer, startGame} = useAppContext()
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -11,7 +13,6 @@ const Game = () => {
 		if (!username) navigate("/")
 		else connect()
 	}, [])
-
 
 	return (
 		<div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
@@ -30,6 +31,7 @@ const Game = () => {
 						(
 							currentPlayer.role === "chief" &&
 							<Button
+								onClick={startGame}
 								className={players.every(player => player.ready) ? "" : "pointer-events-none bg-gray-400"}>
 								Start The Game
 							</Button>
@@ -45,4 +47,4 @@ const Game = () => {
 	);
 };
 
-export default Game;
+export default Lobby;
