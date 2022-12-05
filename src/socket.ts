@@ -43,9 +43,12 @@ export default class ServerSocket {
 	}
 
 	StartListeners = (socket: Socket) => {
-		console.log("user connected", socket.id)
+		socket.on("connection", (data: string) => {
+			console.log("user connected", socket.id, data)
+		})
 
-		socket.on("connection", () => {
+		socket.on("disconnect", () => {
+			console.log("user disconnected", socket.id)
 		})
 	}
 }
