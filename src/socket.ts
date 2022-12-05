@@ -2,18 +2,14 @@ import {Server as HttpServer} from 'http';
 import {Server, Socket} from "socket.io";
 import {IPlayer} from "~~/interfaces";
 
-interface IPlayer {
-	username: string,
-	role: "chief" | "player",
-	socketId: string,
-	ready: boolean
-}
 
 export default class ServerSocket {
 	#io: Server
 	#players: IPlayer[]
+	#hasStarted: boolean
 
 	constructor(server: HttpServer) {
+		this.hasStarted = false
 		this.players = []
 		this.io = new Server(server, {
 			serveClient: false,
@@ -41,6 +37,14 @@ export default class ServerSocket {
 
 	set players(value: IPlayer[]) {
 		this.#players = value;
+	}
+
+	get hasStarted(): boolean {
+		return this.#hasStarted;
+	}
+
+	set hasStarted(value: boolean) {
+		this.#hasStarted = value;
 	}
 
 	StartListeners = (socket: Socket) => {
@@ -74,6 +78,11 @@ export default class ServerSocket {
 				return player
 			})
 			this.io.emit("getReady", this.players)
+		})
+
+		socket.on("startGame", () => {
+			this.hasStarted = true
+			this.io.emit("start")
 		})
 	}
 }
