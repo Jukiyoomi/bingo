@@ -2,12 +2,14 @@ import React, {createContext, useContext, useMemo} from "react";
 import useUsername from "../../hooks/useUsername";
 import useSocket from "../../hooks/useSocket";
 import {Socket} from "socket.io-client";
+import useOnEmission from "../../hooks/useOnEmission";
 
 interface IAppContext {
 	username: string | null,
 	setUsername: React.Dispatch<React.SetStateAction<string | null>>,
 	socket: Socket,
-	connect: () => void
+	connect: () => void,
+	players: any[]
 }
 
 const AppContext = createContext<IAppContext | null>(null)
@@ -22,7 +24,7 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 	/******************** STATES ********************/
 	const {username, setUsername} = useUsername()
 	const socket = useSocket("http://localhost:4000", socketOptions)
-
+	const {players} = useOnEmission(socket)
 	/******************** FUNCTIONS ********************/
 	const connect = () => {
 		socket.connect()
@@ -33,8 +35,9 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 		username,
 		setUsername,
 		socket,
-		connect
-	}), [username])
+		connect,
+		players
+	}), [username, socket, players])
 
 	/******************** RETURN ********************/
 	return (
