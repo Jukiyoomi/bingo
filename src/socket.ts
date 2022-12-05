@@ -64,5 +64,15 @@ export default class ServerSocket {
 			this.players = this.players.filter(player => player.socketId !== socket.id)
 			this.io.emit("newPlayer", this.players)
 		})
+
+		socket.on("getReady", () => {
+			this.players = this.players.map(player => {
+				if (player.socketId === socket.id) {
+					player.ready = true
+				}
+				return player
+			})
+			this.io.emit("getReady", this.players)
+		})
 	}
 }
