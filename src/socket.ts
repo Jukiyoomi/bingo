@@ -9,6 +9,9 @@ interface IPlayer {
 }
 
 export default class ServerSocket {
+	#io: Server
+	#players: IPlayer[]
+
 	constructor(server: HttpServer) {
 		this.players = []
 		this.io = new Server(server, {
@@ -23,24 +26,20 @@ export default class ServerSocket {
 		this.io.on("connect", this.StartListeners)
 	}
 
-	private _io: Server
-
 	get io(): Server {
-		return this._io;
+		return this.#io;
 	}
 
 	set io(value: Server) {
-		this._io = value;
+		this.#io = value;
 	}
 
-	private _players: IPlayer[]
-
 	get players(): IPlayer[] {
-		return this._players;
+		return this.#players;
 	}
 
 	set players(value: IPlayer[]) {
-		this._players = value;
+		this.#players = value;
 	}
 
 	StartListeners = (socket: Socket) => {
@@ -54,14 +53,14 @@ export default class ServerSocket {
 				socketId: socket.id,
 				ready: false
 			}
-			this.players = [...this._players, newPlayer]
+			this.players = [...this.players, newPlayer]
 		})
 
 		socket.on("disconnect", () => {
 			console.log("user disconnected", socket.id)
 
 			// Remove the player from the list
-			this.players = this.players.filter(player => player.socketId === socket.id)
+			this.players = this.players.filter(player => player.socketId !== socket.id)
 		})
 	}
 }
