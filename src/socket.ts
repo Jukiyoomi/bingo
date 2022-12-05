@@ -54,6 +54,7 @@ export default class ServerSocket {
 				ready: false
 			}
 			this.players = [...this.players, newPlayer]
+			this.io.emit("newPlayer", this.players)
 		})
 
 		socket.on("disconnect", () => {
@@ -61,6 +62,7 @@ export default class ServerSocket {
 
 			// Remove the player from the list
 			this.players = this.players.filter(player => player.socketId !== socket.id)
+			this.io.emit("newPlayer", this.players)
 		})
 	}
 }
