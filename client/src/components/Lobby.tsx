@@ -1,18 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useAppContext} from "../context/AppContext";
-import {useNavigate} from "react-router-dom";
 import Button from "../components/Button";
 import Players from "../components/Players";
 
 const Lobby = () => {
-	const {username, connect, players, getReady, currentPlayer, startGame} = useAppContext()
-	const navigate = useNavigate()
-
-	useEffect(() => {
-		// Either redirect, or connect
-		if (!username) navigate("/")
-		else connect()
-	}, [])
+	const {players, getReady, currentPlayer, startGame} = useAppContext()
 
 	return (
 		<div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
