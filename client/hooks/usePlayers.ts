@@ -1,18 +1,19 @@
 import {Socket} from "socket.io-client";
 import {useEffect, useState} from "react";
+import {IPlayer} from "../../interfaces";
 
 const usePlayers = (socket: Socket) => {
-	const [players, setPlayers] = useState<any[]>([])
-	const [currentPlayer, setCurrentPlayer] = useState<any>(null)
+	const [players, setPlayers] = useState<IPlayer[]>([])
+	const [currentPlayer, setCurrentPlayer] = useState<IPlayer | null>(null)
 
 	useEffect(() => {
-		socket.on("newPlayer", (data: any[]) => {
+		socket.on("newPlayer", (data: typeof players) => {
 			setPlayers(data)
-			const player = data?.find(player => player.socketId === socket.id)
+			const player = data.find(player => player.socketId === socket.id)!
 			setCurrentPlayer(player)
 		})
 
-		socket.on("getReady", (data: any[]) => {
+		socket.on("getReady", (data: typeof players) => {
 			setPlayers(data)
 		})
 

@@ -3,6 +3,8 @@ import useUsername from "../../hooks/useUsername";
 import useSocket from "../../hooks/useSocket";
 import {Socket} from "socket.io-client";
 import usePlayers from "../../hooks/usePlayers";
+import {IPlayer} from "../../../interfaces";
+import useStart from "../../hooks/useStart";
 
 interface IAppContext {
 	username: string | null,
@@ -10,8 +12,11 @@ interface IAppContext {
 	socket: Socket,
 	connect: () => void,
 	getReady: () => void,
-	players: any[],
-	currentPlayer: any
+	players: IPlayer[],
+	currentPlayer: IPlayer | null,
+	started: boolean,
+	setStarted: React.Dispatch<React.SetStateAction<boolean>>,
+	startGame: () => void
 }
 
 const AppContext = createContext<IAppContext | null>(null)
@@ -27,6 +32,7 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 	const {username, setUsername} = useUsername()
 	const socket = useSocket("http://localhost:4000", socketOptions)
 	const {players, currentPlayer, setCurrentPlayer} = usePlayers(socket)
+	const {started, setStarted} = useStart(socket)
 
 	/******************** FUNCTIONS ********************/
 	const connect = () => {
@@ -36,7 +42,15 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 
 	const getReady = () => {
 		socket.emit("getReady")
-		setCurrentPlayer({...currentPlayer, ready: true})
+		setCurrentPlayer({
+			...currentPlayer!,
+			ready: true
+		})
+	}
+
+	const startGame = () => {
+
+		socket.emit("startGame")
 	}
 	/******************** VALUE ********************/
 	const value = useMemo(() => ({
@@ -46,8 +60,11 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 		connect,
 		players,
 		getReady,
-		currentPlayer
-	}), [username, socket, players])
+		currentPlayer,
+		started,
+		setStarted,
+		startGame
+	}), [username, socket, players, currentPlayer, started])
 
 	/******************** RETURN ********************/
 	return (

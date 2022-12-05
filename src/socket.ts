@@ -1,5 +1,6 @@
 import {Server as HttpServer} from 'http';
 import {Server, Socket} from "socket.io";
+import {IPlayer} from "~~/interfaces";
 
 interface IPlayer {
 	username: string,
