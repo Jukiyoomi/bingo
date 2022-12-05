@@ -3,7 +3,7 @@ import React from 'react';
 interface IButton {
 	children: React.ReactNode,
 	className?: string,
-	type: "submit" | undefined,
+	type?: "submit",
 	onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
