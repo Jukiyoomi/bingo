@@ -25,7 +25,9 @@ export const createGrid = (id: string): IGrid => {
 			value: Math.floor(Math.random() * 100) + 1,
 			found: false
 		};
-		if (arr.indexOf(r) === -1) arr.push(r);
+		const index = arr.findIndex(value => value.value === r.value)
+
+		if (index === -1) arr.push(r);
 	}
 
 	let grid: IGrid = [[], [], [], [], []]
