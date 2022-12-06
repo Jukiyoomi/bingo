@@ -14,7 +14,9 @@ interface IAppContext {
 	started: boolean,
 	setStarted: React.Dispatch<React.SetStateAction<boolean>>,
 	startGame: () => void,
-	grid: IRowProps[][]
+	grid: IRowProps[][],
+	currentNumber: number | null,
+	emitNumber: (value: number) => void
 }
 
 const AppContext = createContext<IAppContext | null>(null)
@@ -31,7 +33,7 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 	const socket = useSocket("http://localhost:4000", socketOptions)
 	const {players, currentPlayer, setCurrentPlayer} = usePlayers(socket)
 	const {started, setStarted} = useStart(socket)
-	const {grid} = useGrid(socket)
+	const {grid, currentNumber, emitNumber} = useGrid(socket)
 
 	/******************** FUNCTIONS ********************/
 	const connect = () => {
@@ -63,8 +65,10 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 		started,
 		setStarted,
 		startGame,
-		grid
-	}), [username, socket, players, currentPlayer, started, grid])
+		grid,
+		currentNumber,
+		emitNumber
+	}), [username, socket, players, currentPlayer, started, grid, currentNumber])
 
 	/******************** RETURN ********************/
 	return (

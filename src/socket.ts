@@ -8,6 +8,7 @@ export default class ServerSocket {
 	#io: Server
 	#players: IPlayer[]
 	#hasStarted: boolean
+	#currentNumber: number
 
 	constructor(server: HttpServer) {
 		this.hasStarted = false
@@ -46,6 +47,14 @@ export default class ServerSocket {
 
 	set hasStarted(value: boolean) {
 		this.#hasStarted = value;
+	}
+
+	get currentNumber(): number {
+		return this.#currentNumber;
+	}
+
+	set currentNumber(value: number) {
+		this.#currentNumber = value;
 	}
 
 	StartListeners = (socket: Socket) => {
@@ -88,6 +97,26 @@ export default class ServerSocket {
 				const newGrid = createGrid(player.socketId)
 				this.io.to(player.socketId).emit("getGrid", newGrid)
 			})
+			this.GenerateNumberInterval()
 		})
+
+		socket.on("gotNumber", (data: number) => {
+			console.log(this.currentNumber, socket.id, data)
+		})
+
+	}
+
+	// TODO: clear interval somehow
+	GenerateNumberInterval = () => {
+		this.EmitRandomNumber()
+
+		setInterval(this.EmitRandomNumber, 40000)
+	}
+
+	EmitRandomNumber = () => {
+		this.currentNumber = Math.floor(
+			Math.random() * (90 - 1) + 1
+		)
+		this.io.emit("getNumber", this.currentNumber)
 	}
 }
