@@ -1,9 +1,13 @@
 import React from 'react';
+import {useAppContext} from "../context/AppContext";
 
 const Gameboard = () => {
+	const {grid} = useAppContext()
 	return (
 		<div>
-			gameboard
+			<pre>
+				{JSON.stringify(grid, null, 2)}
+			</pre>
 		</div>
 	);
 };
