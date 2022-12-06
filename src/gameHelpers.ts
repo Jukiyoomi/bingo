@@ -11,7 +11,13 @@ type IGrid = [
 		IGridNumber[] | []
 ]
 
-export const createGrid = (): IGrid => {
+interface iGrids {
+	[key: string]: string
+}
+
+let grids: iGrids = {}
+
+export const createGrid = (id: string): IGrid => {
 	const max = 25
 	const arr: IGridNumber[] = [];
 	while (arr.length < max) {
@@ -32,7 +38,11 @@ export const createGrid = (): IGrid => {
 				.slice(i, i + 5)
 				.sort((a: IGridNumber, b: IGridNumber) => a.value - b.value)
 		}
-
+	}
+	grids = {
+		...grids,
+		[id]: JSON.stringify(grid)
 	}
 	return grid
 }
+

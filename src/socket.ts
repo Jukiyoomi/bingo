@@ -85,7 +85,7 @@ export default class ServerSocket {
 			this.hasStarted = true
 			this.io.emit("start")
 			this.players.forEach(player => {
-				const newGrid = createGrid()
+				const newGrid = createGrid(player.socketId)
 				this.io.to(player.socketId).emit("getGrid", newGrid)
 			})
 		})
