@@ -1,14 +1,15 @@
 import React from 'react';
 import {useAppContext} from "../context/AppContext";
+import Grid from "./Grid";
 
 const Gameboard = () => {
-	const {grid} = useAppContext()
+	const {players} = useAppContext()
 	return (
-		<div>
-			<pre>
-				{JSON.stringify(grid, null, 2)}
-			</pre>
-		</div>
+		<section className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+			<Grid/>
+
+			<p className="text-center">{players.length} players in game.</p>
+		</section>
 	);
 };
 
