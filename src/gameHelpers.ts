@@ -22,7 +22,7 @@ export const createGrid = (id: string): IGrid => {
 	const arr: IGridNumber[] = [];
 	while (arr.length < max) {
 		const r: IGridNumber = {
-			value: Math.floor(Math.random() * 100) + 1,
+			value: Math.floor(Math.random() * 90) + 1,
 			found: false
 		};
 		const index = arr.findIndex(value => value.value === r.value)
