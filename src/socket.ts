@@ -1,6 +1,7 @@
 import {Server as HttpServer} from 'http';
 import {Server, Socket} from "socket.io";
 import {IPlayer} from "~~/interfaces";
+import {createGrid} from "~/gameHelpers";
 
 
 export default class ServerSocket {
@@ -83,6 +84,10 @@ export default class ServerSocket {
 		socket.on("startGame", () => {
 			this.hasStarted = true
 			this.io.emit("start")
+			this.players.forEach(player => {
+				const newGrid = createGrid(player.socketId)
+				this.io.to(player.socketId).emit("getGrid", newGrid)
+			})
 		})
 	}
 }

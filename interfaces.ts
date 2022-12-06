@@ -4,3 +4,9 @@ export interface IPlayer {
 	socketId: string,
 	ready: boolean
 }
+
+
+export interface IRowProps {
+	value: number,
+	found: boolean
+}

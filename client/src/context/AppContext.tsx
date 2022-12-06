@@ -1,10 +1,7 @@
 import React, {createContext, useContext, useMemo} from "react";
-import useUsername from "../../hooks/useUsername";
-import useSocket from "../../hooks/useSocket";
 import {Socket} from "socket.io-client";
-import usePlayers from "../../hooks/usePlayers";
-import {IPlayer} from "../../../interfaces";
-import useStart from "../../hooks/useStart";
+import {IPlayer, IRowProps} from "../../../interfaces";
+import {useGrid, usePlayers, useSocket, useStart, useUsername} from "../../hooks"
 
 interface IAppContext {
 	username: string | null,
@@ -16,7 +13,8 @@ interface IAppContext {
 	currentPlayer: IPlayer | null,
 	started: boolean,
 	setStarted: React.Dispatch<React.SetStateAction<boolean>>,
-	startGame: () => void
+	startGame: () => void,
+	grid: IRowProps[][]
 }
 
 const AppContext = createContext<IAppContext | null>(null)
@@ -33,6 +31,7 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 	const socket = useSocket("http://localhost:4000", socketOptions)
 	const {players, currentPlayer, setCurrentPlayer} = usePlayers(socket)
 	const {started, setStarted} = useStart(socket)
+	const {grid} = useGrid(socket)
 
 	/******************** FUNCTIONS ********************/
 	const connect = () => {
@@ -63,8 +62,9 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 		currentPlayer,
 		started,
 		setStarted,
-		startGame
-	}), [username, socket, players, currentPlayer, started])
+		startGame,
+		grid
+	}), [username, socket, players, currentPlayer, started, grid])
 
 	/******************** RETURN ********************/
 	return (
