@@ -6,8 +6,8 @@ const useGrid = (socket: Socket) => {
 	const [grid, setGrid] = useState<IRowProps[][]>([])
 	const [currentNumber, setCurrentNumber] = useState<number | null>(null)
 
-	const emitNumber = (value: number) => {
-		socket.emit("gotNumber", value)
+	const emitNumber = (value: number, index: number) => {
+		socket.emit("gotNumber", value, index)
 	}
 
 	useEffect(() => {
@@ -19,9 +19,14 @@ const useGrid = (socket: Socket) => {
 			setCurrentNumber(data)
 		})
 
+		socket.on("updateGrid", (data: any) => {
+			setGrid(data)
+		})
+
 		return () => {
 			socket.off("getGrid")
 			socket.off("getNumber")
+			socket.off("updateGrid")
 		}
 	}, [socket])
 

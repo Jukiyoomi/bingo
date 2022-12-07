@@ -6,10 +6,10 @@ import {toast} from "react-toastify";
 const Grid = () => {
 	const {grid, currentNumber, emitNumber} = useAppContext()
 
-	const clickNumber = (value: number) => {
+	const clickNumber = (value: number, index: number) => {
 		if (!currentNumber) return
 		if (currentNumber !== value) return toast.error("This is not the good number...")
-		emitNumber(value)
+		emitNumber(value, index)
 	}
 
 	return (
@@ -22,7 +22,7 @@ const Grid = () => {
 						{
 							row.map(({value, found}: IRowProps) =>
 								<li
-									onClick={() => clickNumber(value)}
+									onClick={() => clickNumber(value, id)}
 									key={value}
 									value={value}
 									className={`flex-1 flex justify-center items-center border cursor-pointer transition hover:bg-gray-400 

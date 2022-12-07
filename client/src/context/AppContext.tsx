@@ -16,7 +16,7 @@ interface IAppContext {
 	startGame: () => void,
 	grid: IRowProps[][],
 	currentNumber: number | null,
-	emitNumber: (value: number) => void
+	emitNumber: (value: number, index: number) => void
 }
 
 const AppContext = createContext<IAppContext | null>(null)

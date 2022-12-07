@@ -1,7 +1,7 @@
 import {Server as HttpServer} from 'http';
 import {Server, Socket} from "socket.io";
 import {IPlayer} from "~~/interfaces";
-import {createGrid} from "~/gameHelpers";
+import {checkValueInGrid, createGrid} from "~/gameHelpers";
 
 
 export default class ServerSocket {
@@ -100,8 +100,9 @@ export default class ServerSocket {
 			this.GenerateNumberInterval()
 		})
 
-		socket.on("gotNumber", (data: number) => {
-			console.log(this.currentNumber, socket.id, data)
+		socket.on("gotNumber", (value: number, index: number) => {
+			const updateGrid = checkValueInGrid(socket.id, value, index)
+			socket.emit("updateGrid", updateGrid)
 		})
 
 	}
