@@ -9,6 +9,7 @@ export default class ServerSocket {
 	#players: IPlayer[]
 	#hasStarted: boolean
 	#currentNumber: number
+	#emitInterval: NodeJS.Timer
 
 	constructor(server: HttpServer) {
 		this.hasStarted = false
@@ -55,6 +56,14 @@ export default class ServerSocket {
 
 	set currentNumber(value: number) {
 		this.#currentNumber = value;
+	}
+
+	get emitInterval(): NodeJS.Timer {
+		return this.#emitInterval;
+	}
+
+	set emitInterval(value: NodeJS.Timer) {
+		this.#emitInterval = value;
 	}
 
 	StartListeners = (socket: Socket) => {
@@ -111,7 +120,7 @@ export default class ServerSocket {
 	GenerateNumberInterval = () => {
 		this.EmitRandomNumber()
 
-		setInterval(this.EmitRandomNumber, 40000)
+		this.emitInterval = setInterval(this.EmitRandomNumber, 5000)
 	}
 
 	EmitRandomNumber = () => {
