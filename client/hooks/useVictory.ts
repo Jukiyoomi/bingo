@@ -17,7 +17,7 @@ const useVictory = (socket: Socket) => {
 	}, [socket])
 
 
-	return {finished, winner}
+	return {finished, winner, setFinished, setWinner}
 };
 
 export default useVictory;

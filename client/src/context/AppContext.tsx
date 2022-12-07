@@ -19,7 +19,7 @@ interface IAppContext {
 	currentNumber: number | null,
 	emitNumber: (value: number, index: number) => void,
 	finished: boolean,
-	winner: string
+	winner: string,
 }
 
 const AppContext = createContext<IAppContext | null>(null)
@@ -37,7 +37,7 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 	const {players, currentPlayer, setCurrentPlayer} = usePlayers(socket)
 	const {started, setStarted} = useStart(socket)
 	const {grid, currentNumber, emitNumber} = useGrid(socket)
-	const {finished, winner} = useVictory(socket)
+	const {finished, winner, setFinished, setWinner} = useVictory(socket)
 
 	/******************** FUNCTIONS ********************/
 	const connect = () => {
@@ -57,6 +57,12 @@ const AppProvider = ({children}: { children: React.ReactNode }) => {
 
 		socket.emit("startGame")
 	}
+
+	socket.on("restart", () => {
+		setStarted(false)
+		setFinished(false)
+		setWinner("")
+	})
 	/******************** VALUE ********************/
 	const value = useMemo(() => ({
 		username,

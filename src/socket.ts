@@ -1,7 +1,7 @@
 import {Server as HttpServer} from 'http';
 import {Server, Socket} from "socket.io";
 import {IPlayer} from "~~/interfaces";
-import {checkValueInGrid, createGrid} from "~/gameHelpers";
+import {checkValueInGrid, clearGridList, createGrid} from "~/gameHelpers";
 
 
 export default class ServerSocket {
@@ -117,6 +117,11 @@ export default class ServerSocket {
 				const player = this.players.find(player => player.socketId === socket.id)!
 				this.io.emit("victory", player.username)
 				clearInterval(this.emitInterval)
+
+				setTimeout(() => {
+					clearGridList()
+					this.io.emit("restart")
+				}, 5000)
 			}
 		})
 
