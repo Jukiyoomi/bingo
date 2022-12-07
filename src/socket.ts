@@ -84,8 +84,16 @@ export default class ServerSocket {
 		socket.on("disconnect", () => {
 			console.log("user disconnected", socket.id)
 
+			const removingPlayer = this.players.find(player => player.socketId === socket.id)
+
 			// Remove the player from the list
 			this.players = this.players.filter(player => player.socketId !== socket.id)
+
+			// Set a new chief if the player to be removed is the chief
+			if (removingPlayer && removingPlayer.role === "chief") {
+				this.players[0].role = "chief"
+			}
+
 			this.io.emit("newPlayer", this.players)
 		})
 
@@ -121,7 +129,7 @@ export default class ServerSocket {
 				setTimeout(() => {
 					clearGridList()
 					this.io.emit("restart")
-				}, 5000)
+				}, 30000)
 			}
 		})
 
