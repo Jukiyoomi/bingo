@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {IRowProps} from "../../../interfaces";
 import {useAppContext} from "../context/AppContext";
 import {toast} from "react-toastify";
 
 const Grid = () => {
-	const {grid, currentNumber, emitNumber} = useAppContext()
+	const {grid, currentNumber, emitNumber, finished, winner} = useAppContext()
 
 	const clickNumber = (value: number, index: number) => {
 		if (!currentNumber) return
 		if (currentNumber !== value) return toast.error("This is not the good number...")
 		emitNumber(value, index)
 	}
+
+	useEffect(() => {
+		toast.dismiss()
+		if (finished) toast.info(`${winner} completed the grid. Congratulations !`)
+	}, [finished])
 
 	return (
 		<article
