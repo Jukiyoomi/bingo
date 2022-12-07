@@ -19,7 +19,7 @@ const Grid = () => {
 
 	return (
 		<article
-			className="mx-auto max-w-[600px] h-[600px] grid grid-rows-5 bg-white shadow-lg mb-3"
+			className={`mx-auto max-w-[600px] h-[600px] grid grid-rows-5 bg-white shadow-lg mb-3 ${finished || winner ? "pointer-events-none select-none" : null}`}
 		>
 			{
 				grid.map((row: IRowProps[], id) => (
