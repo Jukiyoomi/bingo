@@ -90,3 +90,7 @@ export const verifyGrid = (grid: IGrid<IGridNumber>, rowIndex: number, colIndex:
 		return countCompleted === 5
 	}
 }
+
+export const clearGridList = () => {
+	grids = {}
+}

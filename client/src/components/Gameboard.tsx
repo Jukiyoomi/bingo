@@ -1,15 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useAppContext} from "../context/AppContext";
 import Grid from "./Grid";
-import {toast} from "react-toastify";
 
 const Gameboard = () => {
-	const {players, currentNumber, finished, winner} = useAppContext()
-
-	useEffect(() => {
-		toast.dismiss()
-		if (finished) toast.info(`${winner} completed the grid. Congratulations !`)
-	}, [finished])
+	const {players, currentNumber} = useAppContext()
 
 	return (
 		<section className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
