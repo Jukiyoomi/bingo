@@ -110,8 +110,14 @@ export default class ServerSocket {
 		})
 
 		socket.on("gotNumber", (value: number, index: number) => {
-			const updateGrid = checkValueInGrid(socket.id, value, index)
-			socket.emit("updateGrid", updateGrid)
+			const {grid, completed} = checkValueInGrid(socket.id, value, index)
+			socket.emit("updateGrid", grid)
+
+			if (completed) {
+				const player = this.players.find(player => player.socketId === socket.id)!
+				this.io.emit("victory", player.username)
+				clearInterval(this.emitInterval)
+			}
 		})
 
 	}
