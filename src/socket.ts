@@ -18,7 +18,7 @@ export default class ServerSocket {
 			serveClient: false,
 			cookie: false,
 			cors: {
-				origin: "http://127.0.0.1:5173",
+				origin: "http://127.0.0.1:" + process.env.PORT || "4000",
 				credentials: true,
 				methods: ["GET", "POST"],
 			},
@@ -90,7 +90,7 @@ export default class ServerSocket {
 			this.players = this.players.filter(player => player.socketId !== socket.id)
 
 			// Set a new chief if the player to be removed is the chief
-			if (removingPlayer && removingPlayer.role === "chief") {
+			if (this.players.length > 0 && removingPlayer && removingPlayer.role === "chief") {
 				this.players[0].role = "chief"
 			}
 
