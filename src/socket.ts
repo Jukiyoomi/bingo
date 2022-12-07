@@ -1,13 +1,15 @@
 import {Server as HttpServer} from 'http';
 import {Server, Socket} from "socket.io";
 import {IPlayer} from "~~/interfaces";
-import {createGrid} from "~/gameHelpers";
+import {checkValueInGrid, createGrid} from "~/gameHelpers";
 
 
 export default class ServerSocket {
 	#io: Server
 	#players: IPlayer[]
 	#hasStarted: boolean
+	#currentNumber: number
+	#emitInterval: NodeJS.Timer
 
 	constructor(server: HttpServer) {
 		this.hasStarted = false
@@ -46,6 +48,22 @@ export default class ServerSocket {
 
 	set hasStarted(value: boolean) {
 		this.#hasStarted = value;
+	}
+
+	get currentNumber(): number {
+		return this.#currentNumber;
+	}
+
+	set currentNumber(value: number) {
+		this.#currentNumber = value;
+	}
+
+	get emitInterval(): NodeJS.Timer {
+		return this.#emitInterval;
+	}
+
+	set emitInterval(value: NodeJS.Timer) {
+		this.#emitInterval = value;
 	}
 
 	StartListeners = (socket: Socket) => {
@@ -88,6 +106,33 @@ export default class ServerSocket {
 				const newGrid = createGrid(player.socketId)
 				this.io.to(player.socketId).emit("getGrid", newGrid)
 			})
+			this.GenerateNumberInterval()
 		})
+
+		socket.on("gotNumber", (value: number, index: number) => {
+			const {grid, completed} = checkValueInGrid(socket.id, value, index)
+			socket.emit("updateGrid", grid)
+
+			if (completed) {
+				const player = this.players.find(player => player.socketId === socket.id)!
+				this.io.emit("victory", player.username)
+				clearInterval(this.emitInterval)
+			}
+		})
+
+	}
+
+	// TODO: clear interval somehow
+	GenerateNumberInterval = () => {
+		this.EmitRandomNumber()
+
+		this.emitInterval = setInterval(this.EmitRandomNumber, 5000)
+	}
+
+	EmitRandomNumber = () => {
+		this.currentNumber = Math.floor(
+			Math.random() * (90 - 1) + 1
+		)
+		this.io.emit("getNumber", this.currentNumber)
 	}
 }
