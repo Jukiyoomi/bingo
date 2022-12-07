@@ -3,21 +3,21 @@ interface IGridNumber {
 	found: boolean
 }
 
-type IGrid = [
-		IGridNumber[] | [],
-		IGridNumber[] | [],
-		IGridNumber[] | [],
-		IGridNumber[] | [],
-		IGridNumber[] | []
+type IGrid<T> = [
+		T[] | [],
+		T[] | [],
+		T[] | [],
+		T[] | [],
+		T[] | []
 ]
 
-interface iGrids {
+interface IGrids {
 	[key: string]: string
 }
 
-let grids: iGrids = {}
+let grids: IGrids = {}
 
-export const createGrid = (id: string): IGrid => {
+export const createGrid = (id: string): IGrid<IGridNumber> => {
 	const max = 25
 	const arr: IGridNumber[] = [];
 	while (arr.length < max) {
@@ -30,7 +30,7 @@ export const createGrid = (id: string): IGrid => {
 		if (index === -1) arr.push(r);
 	}
 
-	let grid: IGrid = [[], [], [], [], []]
+	let grid: IGrid<IGridNumber> = [[], [], [], [], []]
 
 	for (let i = 0; i < arr.length; i++) {
 		if (i % 5 === 0) {
@@ -46,5 +46,24 @@ export const createGrid = (id: string): IGrid => {
 		[id]: JSON.stringify(grid)
 	}
 	return grid
+}
+
+export const checkValueInGrid = (id: string, value: number, index: number) => {
+	// the grid in the list of all grids is a string, so have to parse it to array
+	const correspondingGrid: IGrid<IGridNumber> = JSON.parse(grids[id])
+
+	// get {index}th row
+	const currentRow: IGridNumber[] = correspondingGrid[index]
+
+	for (const gridNumber of currentRow) {
+		if (gridNumber.value === value) {
+			gridNumber.found = true
+			break
+		}
+	}
+
+	grids[id] = JSON.stringify(correspondingGrid)
+
+	return correspondingGrid
 }
 
