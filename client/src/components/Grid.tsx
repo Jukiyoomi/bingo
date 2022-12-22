@@ -30,8 +30,8 @@ const Grid = () => {
 									onClick={() => clickNumber(value, id)}
 									key={value}
 									value={value}
-									className={`flex-1 flex justify-center items-center border cursor-pointer transition hover:bg-gray-400 
-											${found && "bg-blue-500 text-white pointer-events-none"}`}
+									className={`flex-1 flex justify-center items-center border text-2xl cursor-pointer transition hover:bg-gray-400 
+											${found ? "bg-blue-500 text-white pointer-events-none" : null}`}
 								>
 									{value}
 								</li>
