@@ -129,7 +129,7 @@ export default class ServerSocket {
 				setTimeout(() => {
 					clearGridList()
 					this.io.emit("restart")
-				}, 30000)
+				}, 20000)
 			}
 		})
 
@@ -139,7 +139,7 @@ export default class ServerSocket {
 	GenerateNumberInterval = () => {
 		this.EmitRandomNumber()
 
-		this.emitInterval = setInterval(this.EmitRandomNumber, 5000)
+		this.emitInterval = setInterval(this.EmitRandomNumber, 60000)
 	}
 
 	EmitRandomNumber = () => {
