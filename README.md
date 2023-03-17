@@ -4,4 +4,4 @@ A webapp to play real-time bingo with friends.
 
 Stack: React, Typescript, Express, Socket.io
 
-[Come play](https://bingo-wilfrite.up.railway.app/) (hosted by [Railway](https://railway.app/))
+[Come play](https://bingo-wilfrite.herokuapp.com) (hosted by [Heroku](https://www.heroku.com/))
