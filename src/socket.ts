@@ -90,8 +90,13 @@ export default class ServerSocket {
 			this.players = this.players.filter(player => player.socketId !== socket.id)
 
 			// Set a new chief if the player to be removed is the chief
-			if (this.players.length > 0 && removingPlayer && removingPlayer.role === "chief") {
-				this.players[0].role = "chief"
+			if (this.players.length > 0) {
+				if (removingPlayer && removingPlayer.role === "chief") {
+					this.players[0].role = "chief"
+				}
+			} else {
+				this.hasStarted = false
+				clearInterval(this.emitInterval)
 			}
 
 			this.io.emit("newPlayer", this.players)
