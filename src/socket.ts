@@ -139,7 +139,7 @@ export default class ServerSocket {
 	GenerateNumberInterval = () => {
 		this.EmitRandomNumber()
 
-		this.emitInterval = setInterval(this.EmitRandomNumber, 60000)
+		this.emitInterval = setInterval(this.EmitRandomNumber, 15000)
 	}
 
 	EmitRandomNumber = () => {
