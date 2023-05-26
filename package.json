@@ -8,6 +8,7 @@
 		"servBuild": "tsup src/index.ts --format cjs --clean",
 		"build": "npm run client && npm run servBuild",
 		"start": "node dist/index.js",
+		"preinstall": "npm install --prefix client",
 		"client": "npm run --prefix client build"
 	},
 	"keywords": [],
