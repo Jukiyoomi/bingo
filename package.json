@@ -6,8 +6,9 @@
 	"scripts": {
 		"dev": "nodemon --watch src -e js,ts,json --exec \"ts-node src/index.ts\"",
 		"servBuild": "tsup src/index.ts --format cjs --clean",
-		"build": "npm run servBuild",
-		"start": "node dist/index.js"
+		"build": "npm run client && npm run servBuild",
+		"start": "node dist/index.js",
+		"client": "npm run --prefix client build"
 	},
 	"keywords": [],
 	"author": "",
