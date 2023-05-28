@@ -33,7 +33,7 @@ const socketOptions = {
 const AppProvider = ({children}: { children: React.ReactNode }) => {
 	/******************** STATES ********************/
 	const {username, setUsername} = useUsername()
-	const socket = useSocket("https://bingo-wilfrite.herokuapp.com/", socketOptions)
+	const socket = useSocket("https://bingo-wilfrite.vercel.app/", socketOptions)
 	const {players, currentPlayer, setCurrentPlayer} = usePlayers(socket)
 	const {started, setStarted} = useStart(socket)
 	const {grid, currentNumber, emitNumber} = useGrid(socket)
