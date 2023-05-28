@@ -18,7 +18,7 @@ export default class ServerSocket {
 			serveClient: false,
 			cookie: false,
 			cors: {
-				origin: "http://127.0.0.1:" + process.env.PORT || "4000",
+				origin: "*",
 				credentials: true,
 				methods: ["GET", "POST"],
 			},
