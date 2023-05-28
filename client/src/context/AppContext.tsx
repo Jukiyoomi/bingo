@@ -28,12 +28,13 @@ const socketOptions = {
 	autoConnect: false,
 	reconnection: false,
 	withCredentials: true,
+	transports: ["websocket"]
 }
 
 const AppProvider = ({children}: { children: React.ReactNode }) => {
 	/******************** STATES ********************/
 	const {username, setUsername} = useUsername()
-	const socket = useSocket("https://bingo-wilfrite.vercel.app/", socketOptions)
+	const socket = useSocket("http://localhost:4000/", socketOptions)
 	const {players, currentPlayer, setCurrentPlayer} = usePlayers(socket)
 	const {started, setStarted} = useStart(socket)
 	const {grid, currentNumber, emitNumber} = useGrid(socket)
