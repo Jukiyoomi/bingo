@@ -34,7 +34,7 @@ const socketOptions = {
 const AppProvider = ({children}: { children: React.ReactNode }) => {
 	/******************** STATES ********************/
 	const {username, setUsername} = useUsername()
-	const socket = useSocket("http://localhost:4000/", socketOptions)
+	const socket = useSocket("/", socketOptions)
 	const {players, currentPlayer, setCurrentPlayer} = usePlayers(socket)
 	const {started, setStarted} = useStart(socket)
 	const {grid, currentNumber, emitNumber} = useGrid(socket)
