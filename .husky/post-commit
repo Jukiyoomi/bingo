@@ -5,6 +5,7 @@ echo "[Husky] post-commit"
 
 if [ -e .commit ]
     then
+    rm .commit
     echo "Building client..."
     if [ -e client/dist ]
         then
@@ -14,6 +15,6 @@ if [ -e .commit ]
 
     echo "Saving changes..."
     git update-index --add client/dist/index.html client/dist/assets/index.*.js client/dist/assets/index.*.css
-    rm .commit
+
 fi
 exit
