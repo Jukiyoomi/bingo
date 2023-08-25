@@ -7,10 +7,6 @@ if [ -e .commit ]
     then
     rm .commit
     echo "Building client..."
-    if [ -e client/dist ]
-        then
-        rm -rf client/dist
-    fi
     npm run client
 
     echo "Saving changes..."
