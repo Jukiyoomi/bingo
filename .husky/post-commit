@@ -14,7 +14,7 @@ if [ -e .commit ]
     npm run client
 
     echo "Saving changes..."
-    git update-index --add client/dist/index.html client/dist/assets/index.*.js client/dist/assets/index.*.css
-
+    git add client/dist
+    git commit --amend -C HEAD --no-verify
 fi
 exit
