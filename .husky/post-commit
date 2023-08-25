@@ -10,6 +10,7 @@ if [ -e .commit ]
     npm run client
 
     echo "Saving changes..."
+    rm -rf client/dist
     git add client/dist
     git commit --amend -C HEAD --no-verify
 fi
