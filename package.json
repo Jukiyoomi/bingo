@@ -7,7 +7,7 @@
 		"dev": "nodemon --watch src -e js,ts,json --exec \"ts-node src/index.ts\"",
 		"servBuild": "tsup src/index.ts --format esm --clean",
 		"build": "npm run servBuild",
-		"start": "node dist/index.js",
+		"start": "node app/dist/index.js",
 		"client": "npm run --prefix client build",
 		"prepare": "husky install"
 	},
