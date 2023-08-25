@@ -6,10 +6,13 @@ echo "[Husky] post-commit"
 if [ -e .commit ]
     then
     echo "Building client..."
+    if [ -e client/dist ]
+        then
+        rm -rf client/dist
+    fi
     npm run client
 
     echo "Saving changes..."
-    rm -rf client/dist
     git add client/dist
     git commit --amend -C HEAD --no-verify
     rm .commit
