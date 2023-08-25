@@ -13,7 +13,7 @@ if [ -e .commit ]
     npm run client
 
     echo "Saving changes..."
-    git update-index --add client/dist
+    git update-index --add client/dist/*
     rm .commit
 fi
 exit
