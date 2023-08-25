@@ -5,7 +5,6 @@ echo "[Husky] post-commit"
 
 if [ -e .commit ]
     then
-    rm .commit
     echo "Building client..."
     npm run client
 
@@ -13,5 +12,6 @@ if [ -e .commit ]
     rm -rf client/dist
     git add client/dist
     git commit --amend -C HEAD --no-verify
+    rm .commit
 fi
 exit
