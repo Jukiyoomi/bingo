@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "[Husky] post-commit"
+
+if [ -e .commit ]
+    then
+    rm .commit
+    echo "Building client..."
+    npm run client
+
+    echo "Saving changes..."
+    git add client/dist
+    git commit --amend -C HEAD --no-verify
+fi
+exit

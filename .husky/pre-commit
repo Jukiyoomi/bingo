@@ -2,3 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo "[Husky] pre-commit"
+
+echo "Preparing for commit..."
+touch .commit
+exit
