@@ -32,9 +32,11 @@ const socketOptions = {
 }
 
 const AppProvider = ({children}: { children: React.ReactNode }) => {
+	const isProd = window.location.href.includes("localhost")
+	const url = isProd ? "https://bingofrite-06ab86b22195.herokuapp.com/" : "http://localhost:4000"
 	/******************** STATES ********************/
 	const {username, setUsername} = useUsername()
-	const socket = useSocket("http://localhost:4000", socketOptions)
+	const socket = useSocket(url, socketOptions)
 	const {players, currentPlayer, setCurrentPlayer} = usePlayers(socket)
 	const {started, setStarted} = useStart(socket)
 	const {grid, currentNumber, emitNumber} = useGrid(socket)
