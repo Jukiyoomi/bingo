@@ -1,7 +1,7 @@
 {
 	"name": "bingo",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Bingo server",
 	"main": "index.js",
 	"scripts": {
 		"dev": "nodemon --watch src -e js,ts,json --exec \"ts-node src/index.ts\"",
