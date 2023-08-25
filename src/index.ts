@@ -14,7 +14,11 @@ const port = process.env.PORT || 4000
 /** Middlewares */
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+	origin: "*",
+	credentials: true,
+	methods: ["GET", "POST"],
+}))
 
 /** For deployment */
 const publicPath = path.join(__dirname, '../client/dist')
