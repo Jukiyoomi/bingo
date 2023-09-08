@@ -4,8 +4,15 @@ on:
     branches:
       - main
 jobs:
+  setup_client:
+    name: Setup flyctl
+    runs-on: ubuntu-latest
+    steps:
+      - run: cd client
+      - run: npm install
   deploy:
     name: Deploy app
+    needs: setup_client
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
