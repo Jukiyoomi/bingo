@@ -1,0 +1,27 @@
+# fly.toml app configuration file generated for bingo-wilfrite on 2023-09-08T12:02:09+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "bingo-wilfrite"
+primary_region = "cdg"
+
+[build]
+
+[[services]]
+internal_port = 4000
+protocol = "tcp"
+processes = ["app"]
+
+[[services.ports]]
+handlers = ["http"]
+port = "80"
+
+[[services.ports]]
+handlers = ["tls", "http"]
+port = "443"
+
+[[services.tcp_checks]]
+interval = 10000
+timeout = 2000
+
