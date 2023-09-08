@@ -32,9 +32,12 @@ const socketOptions = {
 }
 
 const AppProvider = ({children}: { children: React.ReactNode }) => {
+	console.log(import.meta.env.MODE, window.location.origin)
+	const isDev = !!import.meta.env.MODE && import.meta.env.MODE === "development"
+	const url = isDev ? "http://localhost:4000" : window.location.origin
 	/******************** STATES ********************/
 	const {username, setUsername} = useUsername()
-	const socket = useSocket("http://localhost:4000/", socketOptions)
+	const socket = useSocket(url, socketOptions)
 	const {players, currentPlayer, setCurrentPlayer} = usePlayers(socket)
 	const {started, setStarted} = useStart(socket)
 	const {grid, currentNumber, emitNumber} = useGrid(socket)
