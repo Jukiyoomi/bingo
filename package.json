@@ -9,7 +9,6 @@
 		"build": "npm run servBuild",
 		"start": "node dist/index.js",
 		"client": "npm run --prefix client build",
-		"preinstall": "cd ./client && npm install",
 		"prepare": "husky install"
 	},
 	"keywords": [],
