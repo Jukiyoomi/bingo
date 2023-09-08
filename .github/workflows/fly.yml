@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   setup_client:
-    name: Setup flyctl
+    name: Setup Client
     runs-on: ubuntu-latest
     defaults:
       run:
