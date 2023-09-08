@@ -4,14 +4,6 @@ on:
     branches:
       - main
 jobs:
-  setup_client:
-    name: Setup Client
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: client
-    steps:
-      - run: npm install
   deploy:
     name: Deploy app
     needs: setup_client
