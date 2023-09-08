@@ -28,7 +28,6 @@ RUN npm ci --include=dev
 COPY --link . .
 
 # Build application
-RUN npm run client
 RUN npm run build
 
 # Remove development dependencies

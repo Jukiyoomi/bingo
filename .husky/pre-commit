@@ -2,4 +2,13 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo "[Husky] pre-commit"
-exit 0
+
+if [ -e client/dist ]
+    echo "Removing old client/dist..."
+    then
+    rm -rf client/dist
+fi
+
+echo "Preparing for commit..."
+touch .commit
+exit
