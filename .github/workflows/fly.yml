@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./app/client
+        working-directory: client
     steps:
       - run: npm install
   deploy:
