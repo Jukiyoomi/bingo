@@ -32,9 +32,9 @@ const socketOptions = {
 }
 
 const AppProvider = ({children}: { children: React.ReactNode }) => {
-	console.log(import.meta.env.MODE)
+	console.log(import.meta.env.MODE, window.location.origin)
 	const isDev = !!import.meta.env.MODE && import.meta.env.MODE === "development"
-	const url = isDev ? "http://localhost:4000" : "https://bingofrite-06ab86b22195.herokuapp.com/"
+	const url = isDev ? "http://localhost:4000" : window.location.origin
 	/******************** STATES ********************/
 	const {username, setUsername} = useUsername()
 	const socket = useSocket(url, socketOptions)
