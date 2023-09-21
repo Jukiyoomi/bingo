@@ -2,12 +2,12 @@ import React, {FormEvent, MutableRefObject, useRef} from 'react';
 import Button from "../components/Button";
 import {CiUser} from "react-icons/ci";
 import {toast} from "react-toastify";
-import {useAppContext} from "../context/AppContext";
 import {useNavigate} from "react-router-dom";
+import useUsernameStore from "../../store/user";
 
 const Register = () => {
 	const usernameRef = useRef() as MutableRefObject<HTMLInputElement>
-	const {setUsername} = useAppContext()
+	const setUsername = useUsernameStore((state) => state.setUsername)
 	const navigate = useNavigate()
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

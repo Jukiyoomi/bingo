@@ -2,9 +2,27 @@ import React, {useEffect} from 'react';
 import {IRowProps} from "../../../interfaces";
 import {useAppContext} from "../context/AppContext";
 import {toast} from "react-toastify";
+import useGameStateStore from "../../store/game";
+import useGridStore from "../../store/grid";
 
 const Grid = () => {
-	const {grid, currentNumber, emitNumber, finished, winner} = useAppContext()
+	const {socket} = useAppContext()
+	const [finished, setFinished, winner, setWinner] = useGameStateStore((state) => ([
+		state.finished,
+		state.setFinished,
+		state.winner,
+		state.setWinner
+	]))
+	const [grid, currentNumber, setGrid, setCurrentNumber] = useGridStore((state) => ([
+		state.grid,
+		state.currentNumber,
+		state.setGrid,
+		state.setCurrentNumber
+	]))
+
+	const emitNumber = (value: number, index: number) => {
+		socket.emit("gotNumber", value, index)
+	}
 
 	const clickNumber = (value: number, index: number) => {
 		if (!currentNumber) return
@@ -14,8 +32,38 @@ const Grid = () => {
 
 	useEffect(() => {
 		toast.dismiss()
-		if (finished) toast.info(`${winner} completed the grid. Congratulations !`)
+		if (finished) toast.success(`${winner} completed the grid. Congratulations !`)
 	}, [finished])
+
+	useEffect(() => {
+		socket.on("getGrid", (data: any) => {
+			setGrid(data)
+		})
+
+		socket.on("getNumber", (data: number) => {
+			toast.info("New number !", {
+				autoClose: 1000
+			})
+			setCurrentNumber(data)
+		})
+
+		socket.on("updateGrid", (data: any) => {
+			setGrid(data)
+		})
+
+		socket.on("victory", (data: string) => {
+			console.log("victory", data)
+			setFinished(true)
+			setWinner(data)
+		})
+
+		return () => {
+			socket.off("getGrid")
+			socket.off("getNumber")
+			socket.off("updateGrid")
+			socket.off("victory")
+		}
+	}, [socket])
 
 	return (
 		<article

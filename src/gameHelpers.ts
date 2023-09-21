@@ -17,12 +17,12 @@ interface IGrids {
 
 let grids: IGrids = {}
 
-export const createGrid = (id: string): IGrid<IGridNumber> => {
+export const createGrid = (id: string, maxValue: number): IGrid<IGridNumber> => {
 	const max = 25
 	const arr: IGridNumber[] = [];
 	while (arr.length < max) {
 		const r: IGridNumber = {
-			value: Math.floor(Math.random() * 90) + 1,
+			value: Math.floor(Math.random() * maxValue) + 1,
 			found: false
 		};
 		const index = arr.findIndex(value => value.value === r.value)
@@ -48,7 +48,7 @@ export const createGrid = (id: string): IGrid<IGridNumber> => {
 	return grid
 }
 
-export const checkValueInGrid = (id: string, value: number, index: number) => {
+export const checkValueInGrid = (id: string, value: number, index: number) => { // REFACTOR THIS
 	// the grid in the list of all grids is a string, so have to parse it to array
 	const correspondingGrid: IGrid<IGridNumber> = JSON.parse(grids[id])
 
