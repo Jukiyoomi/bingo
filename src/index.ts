@@ -9,7 +9,7 @@ config()
 
 const app = express()
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT ?? 4000
 
 /** Middlewares */
 app.use(express.urlencoded({extended: true}))
@@ -30,7 +30,7 @@ app.get("*", (_, res) => {
 /** Server Handling */
 const server = http.createServer(app)
 
-new ServerSocket(server)
+const test = new ServerSocket(server)
 
 
 /** Listen */

@@ -19,7 +19,7 @@ const Lobby = () => {
 			<div className="max-w-[800px] mx-auto mt-8 mb-0 flex flex-col items-start gap-4">
 				<Players/>
 				<div className="flex items-center justify-end">
-					{currentPlayer && currentPlayer.ready ?
+					{currentPlayer?.ready ?
 						(
 							currentPlayer.role === "chief" &&
 							<Button
