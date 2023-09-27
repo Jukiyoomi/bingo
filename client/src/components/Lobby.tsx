@@ -1,10 +1,10 @@
 import React from 'react';
-import {useAppContext} from "../context/AppContext";
 import Button from "../components/Button";
 import Players from "../components/Players";
+import usePlayers from "../../hooks/usePlayers";
 
 const Lobby = () => {
-	const {players, getReady, currentPlayer, startGame} = useAppContext()
+	const {players, currentPlayer, startGame, onReadyClick} = usePlayers()
 
 	return (
 		<div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
@@ -29,7 +29,7 @@ const Lobby = () => {
 							</Button>
 						)
 						:
-						<Button onClick={getReady}>
+						<Button onClick={onReadyClick}>
 							Get Ready
 						</Button>
 					}

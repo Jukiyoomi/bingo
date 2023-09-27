@@ -1,21 +1,31 @@
-import {Socket} from "socket.io-client";
-import {useEffect, useState} from "react";
+import useGameStateStore from "../store/game";
+import {useEffect} from "react";
+import socket from "./useSocket";
 
-const useStart = (socket: Socket) => {
-	const [started, setStarted] = useState<boolean>(false)
+const useStart = () => {
+	const [started, start, restart] = useGameStateStore((state) => ([
+		state.started,
+		state.start,
+		state.restart
+	]))
 
 	useEffect(() => {
 		socket.on("start", () => {
-			setStarted(true)
+			start()
+		})
+
+		socket.on("restart", () => {
+			restart()
 		})
 
 		return () => {
 			socket.off("start")
+			socket.off("restart")
 		}
 	}, [socket])
 
+	return started
 
-	return {started, setStarted}
 };
 
 export default useStart;

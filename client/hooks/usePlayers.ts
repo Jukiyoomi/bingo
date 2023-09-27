@@ -1,31 +1,45 @@
-import {Socket} from "socket.io-client";
-import {useEffect, useState} from "react";
-import {IPlayer} from "../../interfaces";
+import socket from "./useSocket";
+import usePlayersStore from "../store/players";
+import {useEffect} from "react";
 
-const usePlayers = (socket: Socket) => {
-	const [players, setPlayers] = useState<IPlayer[]>([])
-	const [currentPlayer, setCurrentPlayer] = useState<IPlayer | null>(null)
+const usePlayers = () => {
+
+	const [players, currentPlayer, newPlayer, getReady] = usePlayersStore((state) => ([
+		state.players,
+		state.currentPlayer,
+		state.newPlayer,
+		state.getReady
+	]))
+
+	const onReadyClick = () => {
+		socket.emit("getReady")
+	}
+
+	const startGame = () => {
+		socket.emit("startGame")
+	}
 
 	useEffect(() => {
 		socket.on("newPlayer", (data: typeof players) => {
-			setPlayers(data)
-			const player = data.find(player => player.socketId === socket.id)!
-			setCurrentPlayer(player)
+			newPlayer(data, socket.id)
 		})
 
 		socket.on("getReady", (data: typeof players) => {
-			setPlayers(data)
+			getReady(data)
 		})
-
 
 		return () => {
 			socket.off("newPlayer")
 			socket.off("getReady")
 		}
-	}, [socket])
+	}, [])
 
-
-	return {players, currentPlayer, setCurrentPlayer}
+	return {
+		players,
+		currentPlayer,
+		onReadyClick,
+		startGame
+	}
 };
 
 export default usePlayers;
