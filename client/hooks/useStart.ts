@@ -1,4 +1,4 @@
-import useGameStateStore from "../store/game";
+import useGameStateStore from "@store/game";
 import {useEffect} from "react";
 import socket from "./useSocket";
 

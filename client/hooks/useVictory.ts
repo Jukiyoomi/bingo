@@ -1,4 +1,4 @@
-import useGameStateStore from "../store/game";
+import useGameStateStore from "@store/game";
 import {useEffect} from "react";
 import {toast} from "react-toastify";
 import socket from "./useSocket";

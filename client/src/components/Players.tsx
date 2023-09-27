@@ -1,6 +1,6 @@
 import React from 'react';
 import Player from "./Player";
-import usePlayersStore from "../../store/players";
+import usePlayersStore from "@store/players";
 
 const Players = () => {
 	const players = usePlayersStore((state) => state.players)

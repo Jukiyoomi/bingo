@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import {devtools, persist} from "zustand/middleware";
-import {IRowProps} from "../../interfaces";
+import {IRowProps} from "@common/types";
 
 interface State {
 	grid: IRowProps[][],

@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import {devtools, persist} from "zustand/middleware";
-import {IPlayer} from "../../interfaces";
+import {IPlayer} from "@common/types";
 
 interface State {
 	players: IPlayer[],
