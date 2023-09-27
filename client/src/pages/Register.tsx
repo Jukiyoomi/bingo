@@ -1,9 +1,9 @@
 import React, {FormEvent, MutableRefObject, useRef} from 'react';
-import Button from "../components/Button";
+import Button from "@/components/Button";
 import {CiUser} from "react-icons/ci";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import useUsernameStore from "../../store/user";
+import useUsernameStore from "@store/user";
 
 const Register = () => {
 	const usernameRef = useRef() as MutableRefObject<HTMLInputElement>

@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from "../components/Button";
-import Players from "../components/Players";
-import usePlayers from "../../hooks/usePlayers";
+import Button from "@/components/Button";
+import Players from "@/components/Players";
+import usePlayers from "@hooks/usePlayers";
 
 const Lobby = () => {
 	const {players, currentPlayer, startGame, onReadyClick} = usePlayers()

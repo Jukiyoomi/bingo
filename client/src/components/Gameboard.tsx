@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from "./Grid";
-import usePlayersStore from "../../store/players";
-import useGridStore from "../../store/grid";
+import usePlayersStore from "@store/players";
+import useGridStore from "@store/grid";
 
 const Gameboard = () => {
 	const currentNumber = useGridStore((state) => (state.currentNumber))

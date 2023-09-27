@@ -1,7 +1,7 @@
 import React from 'react';
-import {IRowProps} from "../../../interfaces";
-import useVictory from "../../hooks/useVictory";
-import useGrid from "../../hooks/useGrid";
+import {IRowProps} from "@common/types";
+import useVictory from "@hooks/useVictory";
+import useGrid from "@hooks/useGrid";
 
 const Grid = () => {
 

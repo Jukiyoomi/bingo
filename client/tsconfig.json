@@ -22,10 +22,24 @@
 		"typeRoots": [
 			"./node_modules/@types",
 			"./types"
-		]
+		],
+		"paths": {
+			"@/*": [
+				"./src/*"
+			],
+			"@hooks/*": [
+				"./hooks/*"
+			],
+			"@store/*": [
+				"./store/*"
+			],
+			"@common/*": [
+				"../common/*"
+			]
+		}
 	},
 	"include": [
-		"src"
+		"./src"
 	],
 	"references": [
 		{

@@ -1,4 +1,4 @@
-import useGridStore from "../store/grid";
+import useGridStore from "@store/grid";
 import {toast} from "react-toastify";
 import {useEffect} from "react";
 import socket from "./useSocket";

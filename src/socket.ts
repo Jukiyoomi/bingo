@@ -1,7 +1,7 @@
 import {Server as HttpServer} from 'http';
 import {Server, Socket} from "socket.io";
-import {IPlayer} from "~~/interfaces";
 import {checkValueInGrid, clearGridList, createGrid} from "~/gameHelpers";
+import {IPlayer} from "~common/types";
 
 
 export default class ServerSocket {
