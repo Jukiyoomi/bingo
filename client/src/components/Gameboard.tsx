@@ -1,9 +1,11 @@
 import React from 'react';
-import {useAppContext} from "../context/AppContext";
 import Grid from "./Grid";
+import usePlayersStore from "@store/players";
+import useGridStore from "@store/grid";
 
 const Gameboard = () => {
-	const {players, currentNumber} = useAppContext()
+	const currentNumber = useGridStore((state) => (state.currentNumber))
+	const players = usePlayersStore((state) => state.players)
 
 	return (
 		<section className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">

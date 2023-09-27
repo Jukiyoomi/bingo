@@ -1,15 +1,17 @@
 import {Server as HttpServer} from 'http';
 import {Server, Socket} from "socket.io";
-import {IPlayer} from "~~/interfaces";
 import {checkValueInGrid, clearGridList, createGrid} from "~/gameHelpers";
+import {IPlayer} from "~common/types";
 
 
 export default class ServerSocket {
 	#io: Server
 	#players: IPlayer[]
 	#hasStarted: boolean
-	#currentNumber: number
+	#currentNumber: number = 0
 	#emitInterval: NodeJS.Timer
+	#time: number = 5000
+	#maxValue: number = 50
 
 	constructor(server: HttpServer) {
 		this.hasStarted = false
@@ -66,6 +68,14 @@ export default class ServerSocket {
 		this.#emitInterval = value;
 	}
 
+	get time(): number {
+		return this.#time;
+	}
+
+	get maxValue(): number {
+		return this.#maxValue;
+	}
+
 	StartListeners = (socket: Socket) => {
 		socket.on("connection", (data: string) => {
 			console.log("user connected", socket.id, data)
@@ -109,6 +119,7 @@ export default class ServerSocket {
 				}
 				return player
 			})
+			console.log("Number of ready players:", this.players.filter(player => player.ready).length, "/", this.players.length)
 			this.io.emit("getReady", this.players)
 		})
 
@@ -116,9 +127,10 @@ export default class ServerSocket {
 			this.hasStarted = true
 			this.io.emit("start")
 			this.players.forEach(player => {
-				const newGrid = createGrid(player.socketId)
+				const newGrid = createGrid(player.socketId, this.maxValue)
 				this.io.to(player.socketId).emit("getGrid", newGrid)
 			})
+			console.log("game started")
 			this.GenerateNumberInterval()
 		})
 
@@ -129,10 +141,12 @@ export default class ServerSocket {
 			if (completed) {
 				const player = this.players.find(player => player.socketId === socket.id)!
 				this.io.emit("victory", player.username)
+				console.log("victory of", player.username)
 				clearInterval(this.emitInterval)
 
 				setTimeout(() => {
 					clearGridList()
+					this.currentNumber = 0
 					this.io.emit("restart")
 				}, 20000)
 			}
@@ -144,13 +158,11 @@ export default class ServerSocket {
 	GenerateNumberInterval = () => {
 		this.EmitRandomNumber()
 
-		this.emitInterval = setInterval(this.EmitRandomNumber, 3000)
+		this.emitInterval = setInterval(this.EmitRandomNumber, this.time)
 	}
 
 	EmitRandomNumber = () => {
-		this.currentNumber = Math.floor(
-			Math.random() * (90 - 1) + 1
-		)
+		this.currentNumber++
 		this.io.emit("getNumber", this.currentNumber)
 	}
 }
