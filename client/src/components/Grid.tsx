@@ -30,14 +30,15 @@ function GridRow({row, rowId, clickNumber}: {
 		<ul className="w-full h-full flex">
 			{
 				row.map(({value, found}: IRowProps) =>
-					<li
-						onClick={() => clickNumber(value, rowId)}
-						key={value}
-						value={value}
-						className={`flex-1 flex justify-center items-center border text-2xl cursor-pointer transition hover:bg-gray-400 
-											${found ? "bg-blue-500 text-white pointer-events-none" : null}`}
-					>
-						{value}
+					<li className="flex-1 flex justify-center items-center border">
+						<button
+							onClick={() => clickNumber(value, rowId)}
+							key={value}
+							value={value}
+							className={`w-full h-full text-2xl cursor-pointer transition hover:bg-gray-400 
+											${found ? "bg-blue-500 text-white pointer-events-none" : null}`}>
+							{value}
+						</button>
 					</li>
 				)
 			}

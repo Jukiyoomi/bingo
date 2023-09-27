@@ -1,19 +1,4 @@
-interface IGridNumber {
-	value: number,
-	found: boolean
-}
-
-type IGrid<T> = [
-		T[] | [],
-		T[] | [],
-		T[] | [],
-		T[] | [],
-		T[] | []
-]
-
-interface IGrids {
-	[key: string]: string
-}
+import {IGrid, IGridNumber, IGrids} from "~common/types";
 
 let grids: IGrids = {}
 
@@ -80,7 +65,7 @@ export const verifyGrid = (grid: IGrid<IGridNumber>, rowIndex: number, colIndex:
 	if (grid[rowIndex].every(elem => elem.found)) return true
 	//	Check if column of current grid element is completed
 	else {
-		let countCompleted: number = 0
+		let countCompleted = 0
 		for (let i = 0; i < grid.length; i++) {
 			if (grid[i][colIndex].found) {
 				countCompleted++
