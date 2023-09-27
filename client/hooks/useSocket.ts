@@ -1,18 +1,16 @@
-import {useEffect, useRef} from 'react';
-import io, {ManagerOptions, Socket, SocketOptions} from 'socket.io-client';
+import io from 'socket.io-client';
 
-const useSocket = (url: string, options?: Partial<ManagerOptions & SocketOptions> | undefined): Socket => {
-	const socket = useRef(io(url, options)).current;
 
-	useEffect(() => {
-		return () => {
-			if (socket) {
-				socket.close();
-			}
-		};
-	}, [socket]);
+console.log(import.meta.env.MODE, window.location.origin)
+const isDev = !!import.meta.env.MODE && import.meta.env.MODE === "development"
+const url = isDev ? "http://localhost:4000" : window.location.origin
 
-	return socket;
-};
+const socketOptions = {
+	autoConnect: false,
+	reconnection: false,
+	withCredentials: true,
+	transports: ["websocket"]
+}
 
-export default useSocket
+const socket = io(url, socketOptions);
+export default socket;

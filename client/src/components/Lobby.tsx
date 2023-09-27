@@ -1,40 +1,10 @@
-import React, {useEffect} from 'react';
-import {useAppContext} from "../context/AppContext";
+import React from 'react';
 import Button from "../components/Button";
 import Players from "../components/Players";
-import usePlayersStore from "../../store/players";
+import usePlayers from "../../hooks/usePlayers";
 
 const Lobby = () => {
-	const {socket} = useAppContext()
-	const [players, currentPlayer, newPlayer, getReady] = usePlayersStore((state) => ([
-		state.players,
-		state.currentPlayer,
-		state.newPlayer,
-		state.getReady
-	]))
-
-	const onReadyClick = () => {
-		socket.emit("getReady")
-	}
-
-	const startGame = () => {
-		socket.emit("startGame")
-	}
-
-	useEffect(() => {
-		socket.on("newPlayer", (data: typeof players) => {
-			newPlayer(data, socket.id)
-		})
-
-		socket.on("getReady", (data: typeof players) => {
-			getReady(data)
-		})
-
-		return () => {
-			socket.off("newPlayer")
-			socket.off("getReady")
-		}
-	}, [])
+	const {players, currentPlayer, startGame, onReadyClick} = usePlayers()
 
 	return (
 		<div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
