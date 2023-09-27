@@ -162,7 +162,9 @@ export default class ServerSocket {
 	}
 
 	EmitRandomNumber = () => {
-		this.currentNumber++
+		this.currentNumber = Math.floor(
+			Math.random() * (90 - 1) + 1
+		)
 		this.io.emit("getNumber", this.currentNumber)
 	}
 }
