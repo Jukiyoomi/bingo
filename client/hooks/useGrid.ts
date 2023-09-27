@@ -2,6 +2,7 @@ import useGridStore from "@store/grid";
 import {toast} from "react-toastify";
 import {useEffect} from "react";
 import socket from "./useSocket";
+import {IGrid, IGridNumber} from "@common/types";
 
 const useGrid = () => {
 	const [grid, currentNumber, setGrid, setCurrentNumber] = useGridStore((state) => ([
@@ -22,7 +23,7 @@ const useGrid = () => {
 	}
 
 	useEffect(() => {
-		socket.on("getGrid", (data: any) => {
+		socket.on("getGrid", (data: IGrid<IGridNumber>) => {
 			setGrid(data)
 		})
 
@@ -33,7 +34,7 @@ const useGrid = () => {
 			setCurrentNumber(data)
 		})
 
-		socket.on("updateGrid", (data: any) => {
+		socket.on("updateGrid", (data: IGrid<IGridNumber>) => {
 			setGrid(data)
 		})
 

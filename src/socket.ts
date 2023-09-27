@@ -8,10 +8,10 @@ export default class ServerSocket {
 	#io: Server
 	#players: IPlayer[]
 	#hasStarted: boolean
-	#currentNumber: number = 0
+	#currentNumber = 0
 	#emitInterval: NodeJS.Timer
-	#time: number = 5000
-	#maxValue: number = 50
+	#time = 5000
+	#maxValue = 50
 
 	constructor(server: HttpServer) {
 		this.hasStarted = false
